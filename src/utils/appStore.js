@@ -1,3 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
-export const appStore = configureStore({ reducer: { user: userReducer } });
+import moviesReducer from "./moviesSlice";
+import movieInfoReducer from "./movieInfoSlice";
+import tvReducer from "./tvSlice";
+export const appStore = configureStore({
+  reducer: {
+    user: userReducer,
+    movies: moviesReducer,
+    tv: tvReducer,
+    movieInfo: movieInfoReducer,
+  },
+});

@@ -1,18 +1,18 @@
 import { useRef, useState } from "react";
 import bg from ".././assets/bg.jpg";
 import { checkValid } from "../utils/validate";
-import Header from "./Header";
+import HeaderMain from "./HeaderMain";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 const Login = () => {
   const [signInForm, setSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const email = useRef(null);
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const password = useRef(null);
   const name = useRef(null);
@@ -35,7 +35,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
+
           updateProfile(user, {
             displayName: name.current.value,
           })
@@ -44,8 +44,6 @@ const Login = () => {
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName })
               );
-
-              navigate("/browse");
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -68,7 +66,6 @@ const Login = () => {
           const user = userCredential.user;
 
           // ...
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -81,7 +78,7 @@ const Login = () => {
   return (
     <>
       <div>
-        <Header />
+        <HeaderMain />
         <img
           src={bg}
           className="w-full h-screen absolute bg-gradient-to-b from-black"

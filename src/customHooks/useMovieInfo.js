@@ -1,0 +1,81 @@
+import { useEffect } from "react";
+import { api_options } from "../utils/constant";
+import { useDispatch } from "react-redux";
+import {
+  addMovieCredits,
+  addMovieDetails,
+  addMovieReviews,
+  addMovieImages,
+  addMovieRecommendations,
+  addMovieSimilar,
+} from "../utils/movieInfoSlice";
+
+export const useMovieInfo = (id) => {
+  const dispatch = useDispatch();
+  const getMovieInfo = () => {
+    const getActorInfo = async () => {
+      const movieInfo = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
+        api_options
+      );
+      const result = await movieInfo.json();
+
+      dispatch(addMovieCredits(result));
+    };
+    const getReviews = async () => {
+      const movieReview = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US`,
+        api_options
+      );
+      const result = await movieReview.json();
+
+      dispatch(addMovieReviews(result.results));
+    };
+    const getImages = async () => {
+      const movieImage = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/images`,
+        api_options
+      );
+      const result = await movieImage.json();
+
+      dispatch(addMovieImages(result.backdrops));
+    };
+    const getMovieDetails = async () => {
+      const movieInfo = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}`,
+        api_options
+      );
+      const result = await movieInfo.json();
+
+      dispatch(addMovieDetails(result));
+    };
+    const getMovieSimilar = async () => {
+      const movieSimilar = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/similar`,
+        api_options
+      );
+      const result = await movieSimilar.json();
+
+      dispatch(addMovieSimilar(result.results));
+    };
+    const getMovieRecommendations = async () => {
+      const movieRecommended = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/recommendations`,
+        api_options
+      );
+      const result = await movieRecommended.json();
+
+      dispatch(addMovieRecommendations(result.results));
+    };
+    getMovieRecommendations();
+    getActorInfo();
+    getReviews();
+    getMovieDetails();
+    getImages();
+    getMovieSimilar();
+  };
+
+  useEffect(() => {
+    getMovieInfo();
+  }, [id]);
+};
