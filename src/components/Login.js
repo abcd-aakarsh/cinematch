@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import bg from ".././assets/bg.jpg";
+
+import bgm from ".././assets/bgm.jpg";
 import { checkValid } from "../utils/validate";
 import HeaderMain from "./HeaderMain";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -80,14 +81,14 @@ const Login = () => {
       <div>
         <HeaderMain />
         <img
-          src={bg}
+          src={bgm}
           className="w-full h-screen absolute bg-gradient-to-b from-black"
           alt="bg"
         />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="absolute w-4/6 sm:w-3/5 md:w-1/3 xl:w-3/12 right-0 left-0 rounded-lg bg-gray-800 mx-auto my-32 bg-opacity-80 px-5 py-4 "
+        className="absolute w-11/12 mx-auto px-6 h-1/2 py-8 lg:w-4/6 sm:w-3/5 md:w-1/3 xl:w-3/12 right-0 top-1/4 -translate-y-1/4 left-0 rounded-lg bg-gray-800 my-32 bg-opacity-80  "
       >
         <h1 className="text-white text-3xl mb-4 font-semibold text-center">
           {signInForm ? "Sign In" : "Sign Up"}

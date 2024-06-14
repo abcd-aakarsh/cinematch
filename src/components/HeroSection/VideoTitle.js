@@ -1,7 +1,7 @@
 const VideoTitle = () => {
   return (
     <>
-      <div className="py-44 md:pt-72 px-16 lg:px-24 lg:pt-64 absolute bg-gradient-to-b lg:bg-gradient-to-r text-gray-200 from-black text-center lg:text-start  w-full lg:6/12 h-[90vh] md:h-[100vh] ">
+      <div className="py-44 px-8   md:pt-72 md:px-16 lg:px-24 lg:pt-64 absolute bg-gradient-to-b lg:bg-gradient-to-t text-gray-200 from-black text-center lg:text-start  w-full lg:6/12 h-[85vh] md:h-[100vh] ">
         <h1 className="text-3xl   font-semibold mb-8 sm:text-4xl  md:text-5xl lg:text-5xl lg:text-start  text-center sm:font-bold sm:mb-10  ">
           Find Your Perfect Match in Movies
         </h1>

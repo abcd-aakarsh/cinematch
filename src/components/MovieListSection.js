@@ -22,8 +22,8 @@ const MovieListSection = () => {
             }}
             className={
               loadMovie
-                ? "px-1 py-1 md:px-2 md:py-1 z-50 bg-teal-600 border-2  rounded-l-3xl border-white "
-                : "md:px-2 px-1 py-1 md:py-1 z-50 bg-teal-600 border-2  rounded-l-3xl border-black  "
+                ? "px-1 py-1 md:px-2 md:py-1 z-30 bg-teal-600 border-2  rounded-l-3xl border-white "
+                : "md:px-2 px-1 py-1 md:py-1 z-30 bg-teal-600 border-2  rounded-l-3xl border-black  "
             }
           >
             Movies
@@ -32,8 +32,8 @@ const MovieListSection = () => {
             onClick={handleLoad}
             className={
               loadMovie
-                ? "md:px-2 px-1 py-1 md:py-1 z-50 bg-sky-600  border-2 border-black rounded-r-3xl"
-                : "md:px-2 px-1 py-1 md:py-1 z-50 bg-sky-600  border-2 border-white rounded-r-3xl"
+                ? "md:px-2 px-1 py-1 md:py-1 z-30 bg-sky-600  border-2 border-black rounded-r-3xl"
+                : "md:px-2 px-1 py-1 md:py-1 z-30 bg-sky-600  border-2 border-white rounded-r-3xl"
             }
           >
             Tv Series
