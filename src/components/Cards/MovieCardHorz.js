@@ -5,7 +5,7 @@ const MovieCardHorz = ({ movie }) => {
     <>
       <div>
         <Link to={`/movie/${movie.id}`}>
-          <div className="w-72   ">
+          <div className="w-44 md:w-72   ">
             <img
               src={img_url + movie.backdrop_path}
               alt="MovieCard"
@@ -13,7 +13,9 @@ const MovieCardHorz = ({ movie }) => {
             />
           </div>
           <div className="py-4">
-            <h3 className="text-sm font-bold  ">{movie.original_title}</h3>
+            <h3 className="text-sm font-bold pl-1 text-gray-200  ">
+              {movie.original_title}
+            </h3>
           </div>
         </Link>
       </div>

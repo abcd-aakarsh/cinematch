@@ -4,20 +4,18 @@ import { img_url } from "../../utils/constant";
 const MovieCard = ({ movie }) => {
   return (
     <>
-      <div>
-        <Link to={`/movie/${movie.id}`}>
-          <div className="w-60   ">
-            <img
-              src={img_url + movie.poster_path}
-              alt="MovieCard"
-              className="rounded-2xl hover:border-2 hover:border-white linear duration-30"
-            />
-          </div>
-          <div className="py-4">
-            <h3 className="text-sm font-bold  ">{movie.original_title}</h3>
-          </div>
-        </Link>
-      </div>
+      <Link to={`/movie/${movie.id}`}>
+        <div className="w-36 md:w-60">
+          <img
+            src={img_url + movie.poster_path}
+            alt="MovieCard"
+            className="rounded-lg hover:border-2 hover:border-white linear duration-30"
+          />
+        </div>
+        <div className="pt-4 text-gray-200">
+          <h3 className="text-sm pl-1 font-bold  ">{movie.original_title}</h3>
+        </div>
+      </Link>
     </>
   );
 };

@@ -11,3 +11,4 @@ export const img_urlb = "https://image.tmdb.org/t/p/w1280/";
 export const img_logo = "https://image.tmdb.org/t/p/original/";
 export const img_pp = "https://image.tmdb.org/t/p/w500";
 export const img_img = "https://image.tmdb.org/t/p/w500";
+export const vid_url = "https://www.youtube.com/watch?v=";

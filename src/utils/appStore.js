@@ -3,11 +3,15 @@ import userReducer from "./userSlice";
 import moviesReducer from "./moviesSlice";
 import movieInfoReducer from "./movieInfoSlice";
 import tvReducer from "./tvSlice";
+import seriesInfoReducer from "./seriesInfoSlice";
+import episodeInfoReducer from "./episodeInfoSlice";
 export const appStore = configureStore({
   reducer: {
     user: userReducer,
     movies: moviesReducer,
     tv: tvReducer,
     movieInfo: movieInfoReducer,
+    seriesInfo: seriesInfoReducer,
+    episodeInfo: episodeInfoReducer,
   },
 });

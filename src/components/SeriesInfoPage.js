@@ -1,28 +1,31 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FaRegCirclePlay } from "react-icons/fa6";
-import { useMovieInfo } from "../customHooks/useMovieInfo";
 import { useSelector } from "react-redux";
 import { img_url, img_urlb, vid_url } from "../utils/constant";
-import { FcAlarmClock } from "react-icons/fc";
+import { FaRegCirclePlay } from "react-icons/fa6";
 import Logo from "./Cards/Logo";
 import CastList from "./Cards/CastList";
-import ReviewList from "./Cards/ReviewList";
+import SeriesList from "./SeriesList";
+import SeasonList from "./Cards/SeasonList";
 import ImageList from "./Cards/ImageList";
-import MovieList from "./MovieList";
-import { useEffect, useState } from "react";
+import ReviewList from "./Cards/ReviewList";
 import Headerrr from "./Headerrr";
 import Footer from "./Footer";
+import { useSeriesInfo } from "../customHooks/useSeriesInfo";
 
-const MovieInfoPage = () => {
+const SeriesInfoPage = () => {
   const { id } = useParams();
-  useMovieInfo(id);
+  useSeriesInfo(id);
+
   const [showFullText, setShowFullText] = useState(false);
-  const limit = 150; // Character limit for the overview
+  const limit = 175; // Character limit for the overview
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -30,54 +33,46 @@ const MovieInfoPage = () => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  const MovieDetails = useSelector((store) => store.movieInfo?.MovieDetails);
-  const MovieCredits = useSelector((store) => store.movieInfo?.MovieCredits);
-  const MovieReviews = useSelector((store) => store.movieInfo?.MovieReviews);
-  const MovieImages = useSelector((store) => store.movieInfo?.MovieImages);
-  const MovieRec = useSelector(
-    (store) => store.movieInfo?.MovieRecommendations
+  const SeriesDetails = useSelector((store) => store.seriesInfo?.SeriesDetails);
+  const SeriesCredits = useSelector((store) => store.seriesInfo?.SeriesCredits);
+  const SeriesImages = useSelector((store) => store.seriesInfo?.SeriesImages);
+  const SeriesReviews = useSelector((store) => store.seriesInfo?.SeriesReviews);
+  const SeriesRec = useSelector(
+    (store) => store.seriesInfo?.SeriesRecommendations
   );
-  const MovieSimilar = useSelector((store) => store.movieInfo?.MovieSimilar);
-  const MovieTrailer = useSelector((store) => store.movieInfo?.MovieTrailer);
+  const SeriesSimilar = useSelector((store) => store.seriesInfo?.SeriesSimilar);
+  const SeriesTrailer = useSelector((store) => store.seriesInfo?.SeriesTrailer);
 
   const {
     backdrop_path,
     poster_path,
-    title,
-    overview,
-    runtime,
-    adult,
-    release_date,
+    name,
     genres,
-    budget,
-    revenue,
+    created_by,
+    overview,
+    first_air_date,
     production_companies,
     vote_average,
-  } = MovieDetails;
+    adult,
+    number_of_episodes,
+    seasons,
+    number_of_seasons,
+  } = SeriesDetails || {};
+  const { cast } = SeriesCredits || {};
+  const trailer = SeriesTrailer?.find((video) => video.type === "Trailer")?.key;
+  const year = first_air_date?.substr(0, 4);
 
-  const { crew, cast } = MovieCredits;
-  const trailer = MovieTrailer?.find((video) => video.type === "Trailer")?.key;
-  const year = release_date?.substr(0, 4);
-
-  const isDateInPast = (release_date) => {
-    const inputDate = new Date(release_date);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return inputDate < today;
-  };
-
-  const director = crew?.find((person) => person.job === "Director");
   const handleLoadMore = () => {
     setShowFullText(!showFullText);
   };
 
   return (
     <>
-      {!MovieDetails ? (
+      <Headerrr />
+      {!SeriesDetails ? (
         <div>Loading...</div>
       ) : (
         <>
-          <Headerrr />
           <div
             className="flex justify-center absolute -z-20 items-center"
             style={{
@@ -93,36 +88,37 @@ const MovieInfoPage = () => {
             }}
           ></div>
           <div className="py-24 max-w-[1420px] mx-auto ">
-            <div className="grid md:grid-cols-3 max-w-screen lg:max-w-screen-2xl mx-auto gap-6 md:gap-16 px-8">
-              <div className="justify-self-center lg:justify-self-start ">
+            <div className="grid md:grid-cols-3  lg:max-w-screen-2xl mx-auto gap-6 md:gap-16 px-8">
+              <div className="justify-self-center lg:justify-self-start">
                 <img
                   alt="main"
-                  src={img_url + poster_path}
-                  className="md:w-96 w-44 border-2  border-white rounded-lg"
+                  src={
+                    poster_path
+                      ? img_url + poster_path
+                      : img_url + backdrop_path
+                  }
+                  className="md:w-96 w-44 border-2 border-white rounded-lg"
                 />
               </div>
               <div className="text-gray-200 text-center lg:text-start md:col-span-2">
-                <h2 className="text-4xl font-semibold mb-1">
-                  {title} {!isDateInPast(release_date) && "(Releasing Soon)"}
-                </h2>
+                <h2 className="text-4xl font-semibold mb-1">{name}</h2>
                 <p className="text-xs mb-3 text-zinc-400 font-semibold">
-                  Directed by {director?.name}
+                  Directed by {created_by && created_by[0]?.name}
                 </p>
                 <div className="flex text-gray-300 mb-1 justify-center lg:justify-start text-sm font-medium gap-6">
                   <p>{year}</p>
-                  <p className="flex items-center justify-center gap-1">
-                    <FcAlarmClock />
-                    {`${Math.floor(runtime / 60)}h ${runtime % 60}m`}
-                  </p>
                   {adult ? <p>18+</p> : <p>PG-16</p>}
+                  <p className="flex items-center justify-center gap-1">
+                    Total Episodes: {number_of_episodes}
+                  </p>
                 </div>
                 <p className="text-gray-300 mb-1 text-sm font-medium">
                   Rated {vote_average?.toFixed(1)}/10
                 </p>
                 <div className="flex text-gray-300 justify-center lg:justify-start text-sm mb-6 font-medium">
-                  {genres?.map((genre) => (
-                    <span key={genre.id} className="pr-2">
-                      {genre.name}
+                  {genres?.map((a) => (
+                    <span key={a?.id} className="pr-2">
+                      {a?.name}
                     </span>
                   ))}
                 </div>
@@ -151,43 +147,42 @@ const MovieInfoPage = () => {
                     </button>
                   )}
                 </div>
-
-                <div className="flex gap-2 text-sm md:gap-6 mb-14 md:mb-12">
-                  <p>
-                    <span className="text-red-500">Budget</span>: $
-                    {(budget / 1000000).toFixed(2)}Million USD
-                  </p>
-                  <p>
-                    <span className="text-green-500">Revenue</span>: $
-                    {(revenue / 1000000).toFixed(2)} Million USD
-                  </p>
-                </div>
-                <div className="flex text-black justify-center lg:justify-start items-center gap-8">
-                  {production_companies?.map((company) => (
-                    <Logo
-                      key={company.id}
-                      name={company.name}
-                      id={company.id}
-                      image={company.logo_path}
-                    />
-                  ))}
-                </div>
+                {!isMobile && (
+                  <div className="flex text-black justify-center lg:justify-start items-center gap-8">
+                    {production_companies?.map((a) => (
+                      <Logo
+                        name={a?.name}
+                        id={a?.id}
+                        key={a?.id}
+                        image={a?.logo_path}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
-          <CastList cast={cast} movie={title} />
-          <ReviewList movieReviews={MovieReviews} movie={title} />
-          <ImageList movieImages={MovieImages} movie={title} />
+
+          <div className="text-white bg-gradient-to-r pt-8 from-black to-black">
+            <SeasonList
+              title={`${number_of_seasons} Seasons`}
+              seasons={seasons}
+              seriesid={id}
+            />
+          </div>
+          <CastList cast={cast} movie={name} />
+          <ReviewList movieReviews={SeriesReviews} movie={name} />
+          <ImageList movieImages={SeriesImages} movie={name} />
           <div className="text-white bg-gradient-to-r from-black to-black">
-            <MovieList
-              title={`Movie recommendations for ${title}`}
-              movies={MovieRec}
+            <SeriesList
+              title={`Series recommendations for ${name}`}
+              series={SeriesRec}
             />
           </div>
           <div className="text-white bg-gradient-to-r from-black to-black">
-            <MovieList
-              title={`Similar Movies for ${title}`}
-              movies={MovieSimilar}
+            <SeriesList
+              title={`Similar Series for ${name}`}
+              series={SeriesSimilar}
             />
           </div>
           <Footer />
@@ -197,4 +192,4 @@ const MovieInfoPage = () => {
   );
 };
 
-export default MovieInfoPage;
+export default SeriesInfoPage;

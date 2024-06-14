@@ -14,16 +14,16 @@ const MovieListSection = () => {
   };
   return (
     <>
-      <div className=" pt-4 bg-gray-800 text-white">
-        <div className="absolute right-6 flex ">
+      <div className=" pt-4 bg-gray-800 relative max-w-full mx-auto  text-gray-200">
+        <div className="absolute top-9 right-4 flex ">
           <button
             onClick={() => {
               setLoadMovie(true);
             }}
             className={
               loadMovie
-                ? "px-2 py-1 bg-teal-600 border-2  rounded-l-3xl border-white "
-                : "px-2 py-1 bg-teal-600 border-2  rounded-l-3xl border-black  "
+                ? "px-1 py-1 md:px-2 md:py-1 z-50 bg-teal-600 border-2  rounded-l-3xl border-white "
+                : "md:px-2 px-1 py-1 md:py-1 z-50 bg-teal-600 border-2  rounded-l-3xl border-black  "
             }
           >
             Movies
@@ -32,8 +32,8 @@ const MovieListSection = () => {
             onClick={handleLoad}
             className={
               loadMovie
-                ? "px-2 py-1 bg-sky-600  border-2 border-black rounded-r-3xl"
-                : "px-2 py-1 bg-sky-600  border-2 border-white rounded-r-3xl"
+                ? "md:px-2 px-1 py-1 md:py-1 z-50 bg-sky-600  border-2 border-black rounded-r-3xl"
+                : "md:px-2 px-1 py-1 md:py-1 z-50 bg-sky-600  border-2 border-white rounded-r-3xl"
             }
           >
             Tv Series
@@ -44,13 +44,22 @@ const MovieListSection = () => {
             <MovieListHorz title={"Upcoming"} movies={movies?.UpcomingMovies} />
             <MovieList title={"NowPlaying"} movies={movies?.NowPlayingMovies} />
             <MovieList title={"Top Rated"} movies={movies?.TopRatedMovies} />
+            <MovieList title={"Action"} movies={movies?.ActionMovies} />
+            <MovieList title={"Adventure"} movies={movies?.AdventureMovies} />
+            <MovieList title={"Animation"} movies={movies?.AnimationMovies} />
+            <MovieList title={"Comedy"} movies={movies?.ComedyMovies} />
+            <MovieList title={"Horror"} movies={movies?.HorrorMovies} />
           </div>
         ) : (
           <div>
+            <SeriesList title={"On Air Shows"} series={tv?.OnAirSeries} />
+            <SeriesList title={"Popular Shows"} series={tv?.PopularSeries} />
+            <SeriesList title={"Airing Today "} series={tv?.PopularSeries} />
             <SeriesList
               title={"Top Rated Tv Series"}
               series={tv?.TopRatedSeries}
             />
+            <SeriesList title={"Anime"} series={tv?.Anime} />
           </div>
         )}
       </div>

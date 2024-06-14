@@ -1,3 +1,4 @@
+import Footer from "../Footer";
 import HeroSection from "../HeroSection";
 import MovieListSection from "../MovieListSection";
 
@@ -6,6 +7,7 @@ const HomePage = () => {
     <>
       <HeroSection />
       <MovieListSection />
+      <Footer />
     </>
   );
 };

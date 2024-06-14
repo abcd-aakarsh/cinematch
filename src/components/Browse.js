@@ -5,6 +5,7 @@ import HeaderMain from "./HeaderMain";
 
 import { useTopRatedSeries } from "../customHooks/useTopRatedSeries";
 import HomePage from "./Pages/HomePage";
+import Headerrr from "./Headerrr";
 
 const Browse = () => {
   useNowPlayingMovies();
@@ -14,7 +15,7 @@ const Browse = () => {
 
   return (
     <div className="no-scrollbar overflow-y-scroll">
-      <HeaderMain />
+      <Headerrr />
       <HomePage />
     </div>
   );

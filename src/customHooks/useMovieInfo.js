@@ -8,6 +8,7 @@ import {
   addMovieImages,
   addMovieRecommendations,
   addMovieSimilar,
+  addMovieTrailer,
 } from "../utils/movieInfoSlice";
 
 export const useMovieInfo = (id) => {
@@ -67,12 +68,25 @@ export const useMovieInfo = (id) => {
 
       dispatch(addMovieRecommendations(result.results));
     };
+    const getMovieTrailer = async () => {
+      const movieTrailer = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/videos`,
+        api_options
+      );
+      const result = await movieTrailer.json();
+
+      const trailer = result?.results?.find(
+        (video) => video.type === "Trailer"
+      );
+      dispatch(addMovieTrailer(trailer ? [trailer] : []));
+    };
     getMovieRecommendations();
     getActorInfo();
     getReviews();
     getMovieDetails();
     getImages();
     getMovieSimilar();
+    getMovieTrailer();
   };
 
   useEffect(() => {
