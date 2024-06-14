@@ -19,7 +19,7 @@ const VideoBackground = () => {
       <img
         className={
           isMobile
-            ? "w-full  bg-gradient-to-l to-black h-[75vh]"
+            ? "w-full  bg-gradient-to-l to-black h-[90vh]"
             : "w-full h-[100vh]"
         }
         src={bgHero}
