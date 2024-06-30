@@ -9,11 +9,13 @@ import { auth } from "../utils/firebase";
 
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import Headerrr from "./Headerrr";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [signInForm, setSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const email = useRef(null);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const password = useRef(null);
   const name = useRef(null);
@@ -84,12 +86,13 @@ const Login = () => {
           setErrorMessage(errorCode + errorMessage);
         });
     }
+    navigate("/");
   };
 
   return (
     <>
       <div>
-        <HeaderMain />
+        <Headerrr />
         <img
           src={isMobile ? bgm : bg}
           className="w-full h-screen absolute bg-gradient-to-b from-black"
