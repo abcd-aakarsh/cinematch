@@ -22,10 +22,9 @@ const HeaderMain = () => {
       if (user) {
         const { uid, email, displayName } = user;
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
-        navigate("/browse");
+        navigate("/");
       } else {
         dispatch(removeUser());
-        navigate("/");
       }
     });
     return () => {

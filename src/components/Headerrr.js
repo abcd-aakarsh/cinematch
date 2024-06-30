@@ -35,7 +35,6 @@ const Headerrr = () => {
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
       } else {
         dispatch(removeUser());
-        navigate("/");
       }
     });
     return () => {
@@ -66,6 +65,13 @@ const Headerrr = () => {
               >
                 <FaSearch className="inline-block " /> Search
               </Link>
+              <Link
+                to="/login"
+                className="text-white  px-3 py-1 hover:bg-white hover:text-black  text-sm  rounded-full font-medium"
+              >
+                SignIn
+              </Link>
+              )
             </div>
           ) : (
             <div className="flex items-center gap-6">
@@ -81,7 +87,8 @@ const Headerrr = () => {
               >
                 <FaSearch className="inline-block mr-1" /> Search
               </Link>
-              {user && (
+
+              {user ? (
                 <div className="flex items-center gap-6">
                   <p className="text-white text-sm font-medium">
                     User: {user.displayName}
@@ -93,6 +100,13 @@ const Headerrr = () => {
                     Signout
                   </button>
                 </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className="text-white  px-3 py-1 hover:bg-white hover:text-black  text-sm  rounded-full font-medium"
+                >
+                  SignIn
+                </Link>
               )}
             </div>
           )}

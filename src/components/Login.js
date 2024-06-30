@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-
+import { useEffect, useRef, useState } from "react";
+import bg from ".././assets/bg.jpg";
 import bgm from ".././assets/bgm.jpg";
 import { checkValid } from "../utils/validate";
 import HeaderMain from "./HeaderMain";
@@ -17,6 +17,16 @@ const Login = () => {
   const dispatch = useDispatch();
   const password = useRef(null);
   const name = useRef(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const toggleSignIn = () => {
     setSignInForm(!signInForm);
   };
@@ -81,7 +91,7 @@ const Login = () => {
       <div>
         <HeaderMain />
         <img
-          src={bgm}
+          src={isMobile ? bgm : bg}
           className="w-full h-screen absolute bg-gradient-to-b from-black"
           alt="bg"
         />

@@ -14,8 +14,8 @@ function App() {
       <Provider store={appStore}>
         <Router>
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/browse" element={<Browse />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Browse />} />
             <Route path="/movie/:id" element={<MovieInfoPage />} />
             <Route path="/series/:id" element={<SeriesInfoPage />} />
             <Route path="/series/:id/:cid" element={<EpisodeInfoPage />} />
