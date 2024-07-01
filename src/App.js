@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import Browse from "./components/Browse";
 import SeriesInfoPage from "./components/SeriesInfoPage";
 import EpisodeInfoPage from "./components/EpisodeInfoPage";
+import SearchPage from "./components/Pages/SearchPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/movie/:id" element={<MovieInfoPage />} />
             <Route path="/series/:id" element={<SeriesInfoPage />} />
             <Route path="/series/:id/:cid" element={<EpisodeInfoPage />} />
+            <Route path="/search" element={<SearchPage />} />
           </Routes>
         </Router>
       </Provider>
