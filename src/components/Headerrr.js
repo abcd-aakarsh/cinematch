@@ -69,7 +69,7 @@ const Headerrr = () => {
                 <div
                   className={
                     !user
-                      ? "fixed top-40 inset-0  bg-opacity-80 backdrop-filter backdrop-blur-lg flex  justify-center items-center"
+                      ? "fixed top-[152px] inset-0  bg-opacity-80 backdrop-filter backdrop-blur-lg flex  justify-center items-center"
                       : "fixed top-44 inset-0  bg-opacity-80 backdrop-filter backdrop-blur-lg flex  justify-center items-center"
                   }
                 >

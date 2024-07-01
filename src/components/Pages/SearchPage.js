@@ -4,10 +4,12 @@ import { RadialTextGradient } from "react-text-gradients-and-animations";
 import { useState } from "react";
 import { api_options } from "../../utils/constant";
 import MovieCard from "../Cards/MovieCard";
+import SeriesCard from "../Cards/SeriesCard";
 
 const SearchPage = () => {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+  const [resultm, setResultsm] = useState([]);
+  const [results, setResultss] = useState([]);
   window.scrollTo(0, 0);
   const searchedMovie = async () => {
     if (!query) return;
@@ -15,9 +17,15 @@ const SearchPage = () => {
       `https://api.themoviedb.org/3/search/movie?query=${query}&sort_by=popularity.desc`,
       api_options
     );
-    const result = await searchMovie.json();
-    console.log(result);
-    setResults(result.results);
+    const searchSeries = await fetch(
+      `https://api.themoviedb.org/3/search/tv?query=${query}&sort_by=popularity.desc`,
+      api_options
+    );
+    const resultm = await searchMovie.json();
+    const results = await searchSeries.json();
+
+    setResultsm(resultm.results);
+    setResultss(results.results);
   };
 
   return (
@@ -35,7 +43,7 @@ const SearchPage = () => {
               animateDirection={"horizontal"}
               animateDuration={6}
             >
-              Discover Your Next Favorite Movie
+              Discover Your Next Favorite Movie/Series
             </RadialTextGradient>
           </div>
 
@@ -52,7 +60,7 @@ const SearchPage = () => {
                 onChange={(e) => setQuery(e.target.value)}
                 type="text"
                 className="w-full border-none outline-none py-2 text-gray-700 border-black cursor-pointer placeholder:text-gray-700 hover:placeholder-black px-4 rounded-full"
-                placeholder="Find your next favorite movie..."
+                placeholder="Find your next favorite movie/series"
               />
               <button className="px-6 py-2 bg-red-700 border border-black rounded-full outline-none border-none hover:text-gray-300 absolute right-0 ">
                 Search
@@ -60,14 +68,26 @@ const SearchPage = () => {
             </div>
           </form>
         </div>
-        {results.length > 0 && (
+        {resultm.length > 0 && (
           <div className="max-w-[1320px] mx-auto pb-4 ">
-            <h3 className="text-gray-200 text-center text-2xl mb-8">
+            <h3 className="text-gray-200 text-center text-2xl md:text-3xl mb-8">
               Search Results for <span className="text-amber-700">{query}</span>
             </h3>
+
             <div>
+              <p className="text-purple-200 text-center text-2xl md:text-3xl bold px-5 pt-2 pb-4 ">
+                Series
+              </p>
+              <div className="flex flex-wrap max-w-[1480px] justify-center px-4 mx-auto gap-x-6 sm:gap-x-4 gap-y-4 md:gap-4 mb-8 ">
+                {results.map((series) => (
+                  <SeriesCard key={series.id} series={series} />
+                ))}
+              </div>
+              <p className="text-purple-200 text-center text-2xl  md:text-3xl bold px-5 pt-2 pb-4 ">
+                Movies
+              </p>
               <div className="flex flex-wrap max-w-[1480px] justify-center px-4 mx-auto gap-x-6 sm:gap-x-4 gap-y-4 md:gap-4 ">
-                {results.map((movie) => (
+                {resultm.map((movie) => (
                   <MovieCard key={movie.id} movie={movie} />
                 ))}
               </div>
