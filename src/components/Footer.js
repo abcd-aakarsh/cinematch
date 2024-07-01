@@ -34,7 +34,8 @@ const Footer = () => {
             <FaSearch className="inline-block mr-1" /> Search
           </Link>
           <Link
-            to="/"
+            to="https://github.com/abcd-aakarsh"
+            target="_blank"
             className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
           >
             <FaPersonCane className="inline-block mr-1" /> About Us

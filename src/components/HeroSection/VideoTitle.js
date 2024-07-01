@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const VideoTitle = () => {
   return (
     <>
@@ -11,9 +13,12 @@ const VideoTitle = () => {
           favorite film effortlessly.
         </p>
         <div className="lg:w-6/12 ">
-          <button className="bg-gradient-to-l from-gray-700 to-red-700  font-semibold px-6 text-lg py-2 rounded-full">
+          <Link
+            to="/search"
+            className="bg-gradient-to-l from-gray-700 to-red-700  font-semibold px-6 text-lg py-2 rounded-full"
+          >
             Discover Now
-          </button>
+          </Link>
         </div>
       </div>
     </>

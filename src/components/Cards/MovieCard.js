@@ -7,8 +7,8 @@ const MovieCard = ({ movie }) => {
     <>
       <Link className="w-36 md:w-60" to={`/movie/${movie.id}`}>
         <div className="w-36 md:w-60">
-          {!movie ? (
-            <div className="bg-gray-600"></div>
+          {!movie.poster_path ? (
+            <div className="bg-gray-600 rounded-lg h-36 w-36 md:w-60 border"></div>
           ) : (
             <img
               src={img_url + movie.poster_path}
